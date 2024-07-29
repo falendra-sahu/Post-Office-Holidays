@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>Post Office Holidays</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+        .search-container {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        input[type="text"] {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-right: 10px;
+            font-size: 16px;
+        }
+        button {
+            background-color: #e63946;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #d62839;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f1faee;
+            color: #333;
+        }
+        tbody tr:hover {
+            background-color: #f9f9f9;
+        }
+        .highlight {
+            background-color: #ffeeba; /* Highlight color */
+        }
+        @media (max-width: 600px) {
+            .search-container {
+                flex-direction: column;
+            }
+            input[type="text"], button {
+                margin-bottom: 10px;
+            }
+        }
+        footer {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #666;
+            text-align: center;
+        }
+        footer a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Post Office Holidays</h1>
+    
+    <div class="search-container">
+        <input type="text" id="search" placeholder="Search Holidays..." onkeyup="filterTable()">
+        <button onclick="clearSearch()">Clear</button>
+    </div>
+    
+    <table id="holidayTable">
+        <caption>List of Holidays</caption>
+        <thead>
+            <tr>
+                <th>Holiday</th>
+                <th>Date</th>
+                <th>Day</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Republic Day</td>
+                <td>26-01-2024</td>
+                <td>Friday</td>
+            </tr>
+            <tr>
+                <td>Good Friday</td>
+                <td>29-03-2024</td>
+                <td>Friday</td>
+            </tr>
+            <tr>
+                <td>Idu'l Fitr</td>
+                <td>11-04-2024</td>
+                <td>Thursday</td>
+            </tr>
+            <tr>
+                <td>Mahavir Jayanthi</td>
+                <td>21-04-2024</td>
+                <td>Sunday</td>
+            </tr>
+            <tr>
+                <td>Buddha Purnima</td>
+                <td>23-05-2024</td>
+                <td>Thursday</td>
+            </tr>
+            <tr>
+                <td>Idu’l Zuha</td>
+                <td>17-06-2024</td>
+                <td>Monday</td>
+            </tr>
+            <tr>
+                <td>Muharram</td>
+                <td>17-07-2024</td>
+                <td>Wednesday</td>
+            </tr>
+            <tr>
+                <td>Independence Day</td>
+                <td>15-08-2024</td>
+                <td>Thursday</td>
+            </tr>
+            <tr>
+                <td>Prophet Mohammad’s Birthday (ID-E Milad)</td>
+                <td>16-09-2024</td>
+                <td>Monday</td>
+            </tr>
+            <tr>
+                <td>Mahatma Gandhi’s Birthday</td>
+                <td>02-10-2024</td>
+                <td>Wednesday</td>
+            </tr>
+            <tr>
+                <td>Dussehra (Vijaya Dashami)</td>
+                <td>12-10-2024</td>
+                <td>Saturday</td>
+            </tr>
+            <tr>
+                <td>Diwali (Deepavali)</td>
+                <td>31-10-2024</td>
+                <td>Thursday</td>
+            </tr>
+            <tr>
+                <td>Guru Nanak’s Birthday</td>
+                <td>15-11-2024</td>
+                <td>Friday</td>
+            </tr>
+            <tr>
+                <td>Christmas Day</td>
+                <td>25-12-2024</td>
+                <td>Wednesday</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <p style="text-align: center; margin-top: 20px;">Last Updated: 12 Feb 2024</p>
+</div>
+
+<footer>
+    Powered by <a href="#">Falendra Sahu ❤️</a>
+</footer>
+
+<script>
+    function filterTable() {
+        const searchInput = document.getElementById("search").value.toLowerCase();
+        const table = document.getElementById("holidayTable");
+        const trs = table.getElementsByTagName("tr");
+
+        for (let i = 1; i < trs.length; i++) {
+            const tds = trs[i].getElementsByTagName("td");
+            let found = false;
+            for (let j = 0; j < tds.length; j++) {
+                if (tds[j].innerText.toLowerCase().includes(searchInput)) {
+                    found = true;
+                }
+            }
+            trs[i].style.display = found ? "" : "none";
+        }
+    }
+
+    function clearSearch() {
+        document.getElementById("search").value = '';
+        filterTable();
+    }
+
+    // Highlight holidays in the current month
+    function highlightCurrentMonthHolidays() {
+        const currentMonth = new Date().getMonth() + 1; // Get current month (0-11)
+        const rows = document.querySelectorAll("#holidayTable tbody tr");
+
+        rows.forEach(row => {
+            const dateCell = row.cells[1].innerText; // Get date cell
+            const day = parseInt(dateCell.split('-')[0]); // Get day
+            const month = parseInt(dateCell.split('-')[1]); // Get month
+
+            if (month === currentMonth) {
+                row.classList.add('highlight'); // Add highlight class
+            }
+        });
+    }
+
+    // Call the function on page load
+    window.onload = highlightCurrentMonthHolidays;
+
+</script>
+
+</body>
+</html>
